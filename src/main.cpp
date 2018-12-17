@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Role.hpp"
 #include "AdministrativeRole.hpp"
+#include "StudentRole.hpp"
 
 int main() {
 
