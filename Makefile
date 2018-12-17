@@ -5,8 +5,8 @@ all: build/ build/demo
 build/:
 	@mkdir -p build
 
-build/demo: build/main.o build/Role.o build/AdministrativeRole.o build/StudentRole.o
-	g++ -g -o build/demo build/main.o build/Role.o build/AdministrativeRole.o build/StudentRole.o
+build/demo: build/main.o build/Role.o build/AdministrativeRole.o build/StudentRole.o build/TeacherRole.o
+	g++ -g -o build/demo build/main.o build/Role.o build/AdministrativeRole.o build/StudentRole.o build/TeacherRole.o
 
 build/main.o: src/main.cpp src/Role.hpp
 	g++ $(CPPFLAGS) -c -o build/main.o src/main.cpp
@@ -20,6 +20,8 @@ build/AdministrativeRole.o: src/AdministrativeRole.cpp src/AdministrativeRole.hp
 build/StudentRole.o: src/StudentRole.cpp src/StudentRole.hpp src/Role.hpp
 	g++ $(CPPFLAGS) -c -o build/StudentRole.o src/StudentRole.cpp
 
+build/TeacherRole.o: src/TeacherRole.cpp src/TeacherRole.hpp src/Role.hpp
+	g++ $(CPPFLAGS) -c -o build/TeacherRole.o src/TeacherRole.cpp
 
 clean:
 	@rm -f build/*.o

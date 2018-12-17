@@ -2,6 +2,7 @@
 #include "Role.hpp"
 #include "AdministrativeRole.hpp"
 #include "StudentRole.hpp"
+#include "TeacherRole.hpp"
 
 int main() {
 
