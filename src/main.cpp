@@ -1,7 +1,11 @@
 #include <iostream>
+#include "Role.hpp"
 
 int main() {
-    std::cout << "Hello!\n";
-    return 0;
+
+  Role* p;
+
+  std::cout << "Hello!\n";
+  return 0;
 }
 
