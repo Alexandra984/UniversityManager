@@ -3,6 +3,7 @@
 #include "AdministrativeRole.hpp"
 #include "StudentRole.hpp"
 #include "TeacherRole.hpp"
+#include "GuestRole.hpp"
 
 int main() {
 
