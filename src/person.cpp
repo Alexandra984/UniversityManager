@@ -4,7 +4,7 @@
 Person::~Person() {}
 
 Person:: Person(const std::string& first_name, const std::string& last_name,
-    const std::string& email, int cnp) :
+    const std::string& email, long long cnp) :
   _first_name(first_name),
   _last_name(last_name),
   _email(email),
@@ -43,3 +43,10 @@ void Person::SetCnp(int cnp) {
   _cnp = cnp;
 }
 
+std::ostream& operator<<(std::ostream& out, Person& person) {
+  out << person._first_name << ' ' << person._last_name << '\n';
+  out << "Email: " << person._email << '\n';
+  out << "CNP: " << person._cnp << '\n';
+  person.PrintAdditional(out);
+  return out;
+}

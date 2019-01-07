@@ -13,7 +13,7 @@ class StudentRecord : public Repository<Student> {
   Student* FindByFirstName(const std::string& first_name);
   Student* FindByFullName(const std::string& last_name,
       const std::string& first_name);
-  Student* FindByCnp(int cnp);
+  Student* FindByCnp(long long cnp);
   Student* FindByEmail(const std::string& email);
   Student* FindById(int id);
   std::vector<Student*> FindByGroupNo(int group_no);

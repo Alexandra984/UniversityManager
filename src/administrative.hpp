@@ -5,10 +5,12 @@
 
 class Administrative : public Person {
  public:
-  Administrative(const std::string& first_name, const std::string& last_name, 
-    const std::string& email, int cnp);
-  
+  Administrative(const std::string& first_name, const std::string& last_name,
+    const std::string& email, long long cnp);
+
   Type GetType();
+ protected:
+  void PrintAdditional(std::ostream& out);
 };
 
 #endif

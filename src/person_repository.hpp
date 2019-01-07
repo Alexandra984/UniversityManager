@@ -8,9 +8,9 @@ class PersonRepository : public Repository<Person> {
  public:
   Person* FindByLastName(const std::string& last_name);
   Person* FindByFirstName(const std::string& first_name);
-  Person* FindByFullName(const std::string& last_name, 
+  Person* FindByFullName(const std::string& last_name,
     const std::string& first_name);
-  Person* FindByCnp(int cnp);
+  Person* FindByCnp(long long cnp);
   Person* FindByEmail(const std::string& email);
   std::vector<Person*> FindByType(Person::Type type);
 };

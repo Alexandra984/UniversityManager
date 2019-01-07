@@ -7,8 +7,8 @@
 
 class DidacticActivity : public Activity {
  public:
-  DidacticActivity(Teacher* owner, Room* room, const std::string& description,
-    Subject* subject);
+  DidacticActivity(Teacher* owner, Room* room, const std::string& name,
+    const std::string& description, Subject* subject);
 
   Subject* GetSubject();
   void SetSubject(Subject* subject);

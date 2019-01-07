@@ -6,7 +6,7 @@
 class Student : public Person {
  public:
   Student(const std::string& first_name, const std::string& last_name,
-    const std::string& email, int cnp, int id, int year, int group_no);
+    const std::string& email, long long cnp, int id, int year, int group_no);
 
   int GetId();
   int GetYear();
@@ -17,7 +17,11 @@ class Student : public Person {
   void SetGroupNo(int group_no);
 
   Type GetType();
-private:
+
+ protected:
+  void PrintAdditional(std::ostream& out);
+
+ private:
   int _id;
   int _year;
   int _group_no;

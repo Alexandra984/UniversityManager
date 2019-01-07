@@ -2,7 +2,7 @@
 #include "teacher.hpp"
 
 Teacher::Teacher(const std::string& first_name, const std::string& last_name,
-    const std::string& email, int cnp, const std::string& studies,
+    const std::string& email, long long cnp, const std::string& studies,
     const std::string& function) :
   Person(first_name, last_name, email, cnp),
   _studies(studies),
@@ -29,3 +29,7 @@ Teacher::Type Teacher::GetType() {
   return TEACHER;
 }
 
+void Teacher::PrintAdditional(std::ostream& out) {
+  out << "Studies: " << _studies << '\n';
+  out << "Function: " << _function << '\n';
+}

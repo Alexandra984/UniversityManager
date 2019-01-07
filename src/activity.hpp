@@ -14,10 +14,12 @@ class Activity {
   };
 
   virtual ~Activity();
-  Activity(Person* owner, Room* room, const std::string& description);
+  Activity(Person* owner, Room* room, const std::string& name,
+    const std::string& description);
 
   Person* GetOwner();
   Room* GetRoom();
+  std::string GetName();
   std::string GetDescription();
   std::vector<Person*> GetParticipants();
 
@@ -33,7 +35,7 @@ class Activity {
 
   Person* _owner;
   Room* _room;
-  std::string _description;
+  std::string _name, _description;
   std::vector<Person*> _participants;
 };
 

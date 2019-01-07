@@ -3,9 +3,11 @@
 
 Activity::~Activity() {};
 
-Activity::Activity(Person* owner, Room* room, const std::string& description) :
+Activity::Activity(Person* owner, Room* room, const std::string& name,
+    const std::string& description) :
   _owner(owner),
   _room(room),
+  _name(name),
   _description(description) {
 }
 
@@ -15,6 +17,10 @@ Person* Activity::GetOwner() {
 
 Room* Activity::GetRoom() {
   return _room;
+}
+
+std::string Activity::GetName() {
+  return _name;
 }
 
 std::string Activity::GetDescription() {

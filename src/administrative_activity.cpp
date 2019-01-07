@@ -2,8 +2,8 @@
 #include "administrative_activity.hpp"
 
 AdministrativeActivity::AdministrativeActivity(Administrative* owner, Room* room,
-    const std::string& description) :
-  Activity(owner, room, description) {
+    const std::string& name, const std::string& description) :
+  Activity(owner, room, name, description) {
 }
 
 AdministrativeActivity::Type AdministrativeActivity::GetType() {

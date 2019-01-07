@@ -6,7 +6,8 @@
 
 class AdministrativeActivity : public Activity {
  public:
-  AdministrativeActivity(Administrative* owner, Room* room, const std::string& description);
+  AdministrativeActivity(Administrative* owner, Room* room,
+    const std::string& name, const std::string& description);
 
   Type GetType();
  protected:

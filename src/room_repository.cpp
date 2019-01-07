@@ -6,8 +6,7 @@ Room* RoomRepository::FindByName(const std::string& name) {
   for (int i = 0; i < (int)_entities.size(); ++i) {
     if (_entities[i]->GetName() == name)
       return _entities[i];
-    else
-      std::cout << "Nu exista acest element" << std::endl;
   }
+  std::cout << "No such room" << std::endl;
   exit(1);
 }

@@ -25,7 +25,7 @@ Student* StudentRecord::FindByFullName(const std::string& last_name, const std::
   return NULL;
 }
 
-Student* StudentRecord::FindByCnp(int cnp) {
+Student* StudentRecord::FindByCnp(long long cnp) {
   for (int i = 0; i < (int)_entities.size(); ++i) {
     if (_entities[i]->GetCnp() == cnp)
       return _entities[i];

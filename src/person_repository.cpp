@@ -31,13 +31,13 @@ Person* PersonRepository::FindByFullName(const std::string& last_name,
   exit(1);
 }
 
-Person* PersonRepository::FindByCnp(int cnp) {
+Person* PersonRepository::FindByCnp(long long cnp) {
   for (int i = 0; i <(int) _entities.size(); ++i) {
     if (_entities[i]->GetCnp() == cnp) {
       return _entities[i];
     }
   }
-  exit(1);
+  return NULL;
 }
 
 Person* PersonRepository::FindByEmail(const std::string& email) {

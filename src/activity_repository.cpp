@@ -28,3 +28,12 @@ std::vector<Activity*> ActivityRepository::FindByType(Activity::Type type) {
   }
   return activities;
 }
+
+Activity* ActivityRepository::FindByName(const std::string& name) {
+  for (int i = 0; i < (int)_entities.size(); ++i) {
+     if (_entities[i]->GetName() == name)
+      return _entities[i];
+  }
+  return NULL;
+}
+

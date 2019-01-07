@@ -16,7 +16,204 @@
 #include "person_repository.hpp"
 #include "student_record.hpp"
 
+class Menu {
+ public:
+  void Init() {
+    PrintHelp();
+
+    while (true) {
+      int x;
+      std::cout << "Your option: ";
+      std::cin >> x;
+      switch (x) {
+        case 1: AddPerson(); break;
+        case 2: AddRoom(); break;
+        case 3: AddSubject(); break;
+        case 4: AddDidacticActivity(); break;
+        case 5: FindPersonByCNP(); break;
+        case 6: GradeActivity(); break;
+        case 7: PrintGrades(); break;
+        case 8: AddStudentToActivity(); break;
+        default: PrintHelp();
+      }
+    }
+  }
+ private:
+  void PrintHelp() {
+    std::cout << "Print number of the chosen option:\n";
+    std::cout << "0. Help\n";
+    std::cout << "1. Add person\n";
+    std::cout << "2. Add room\n";
+    std::cout << "3. Add subject\n";
+    std::cout << "4. Add didactic activity\n";
+    std::cout << "5. Find person by CNP\n";
+    std::cout << "6. Grade an activity\n";
+    std::cout << "7. Print all grades\n";
+    std::cout << "8. Add student to didactic activity\n";
+  }
+
+  void AddPerson() {
+    std::string first_name;
+    std::cout << "First Name: ";
+    std::cin >> first_name;
+    std::string last_name;
+    std::cout << "Last Name: ";
+    std::cin >> last_name;
+    std::string email;
+    std::cout << "Email: ";
+    std::cin >> email;
+    long long cnp;
+    std::cout << "CNP: ";
+    std::cin >> cnp;
+    std::cout << "Choose type:\n1. Student\n2. Teacher\n3. Administrative\n";
+    int type; std::cin >> type;
+    int id, year, group;
+    std::string studies, function;
+    Student* p;
+    switch (type) {
+     case 1:
+      std::cout << "Id: "; std::cin >> id;
+      std::cout << "Year: "; std::cin >> year;
+      std::cout << "Group: "; std::cin >> group;
+      p = new Student(first_name, last_name, email, cnp, id, year, group);
+      students.Add(p);
+      people.Add(p);
+      break;
+     case 2:
+      std::cout << "Studies: "; std::cin >> studies;
+      std::cout << "Function: "; std::cin >> function;
+      people.Add(new Teacher(first_name, last_name, email, cnp, studies, function));
+      break;
+     default:
+      people.Add(new Administrative(first_name, last_name, email, cnp));
+    }
+  }
+
+  void AddRoom() {
+    std::string name;
+    std::cout << "Name: "; std::cin >> name;
+    rooms.Add(new Room(name));
+  }
+
+  void AddSubject() {
+    std::string name;
+    std::cout << "Name: "; std::cin >> name;
+    subjects.Add(new Subject(name));
+  }
+
+  void AddDidacticActivity() {
+    std::cout << "Choose name of teacher:\n";
+    std::vector<Person*> teachers = people.FindByType(Person::TEACHER);
+    for (int i = 0; i < (int)teachers.size(); ++i)
+      std::cout << teachers[i]->GetLastName() << ' ';
+    std::cout << '\n';
+    std::string name;
+    std::cout << "Type name: "; std::cin >> name;
+    Teacher* teacher = dynamic_cast<Teacher*>(people.FindByLastName(name));
+    if (teacher == NULL) {
+      std::cout << "ABORT\n";
+      return;
+    }
+    std::cout << "Choose name of room:\n";
+    std::vector<Room*> allrooms = rooms.GetAll();
+    for (int i = 0; i < (int)allrooms.size(); ++i)
+      std::cout << allrooms[i]->GetName() << ' ';
+    std::cout << '\n';
+    std::cout << "Type name: "; std::cin >> name;
+    Room* room = rooms.FindByName(name);
+    std::cout << "Choose name of subject:\n";
+    std::vector<Subject*> allsubs = subjects.GetAll();
+    for (int i = 0; i < (int)allsubs.size(); ++i)
+      std::cout << allsubs[i]->GetName() << ' ';
+    std::cout << '\n';
+    std::cout << "Type name: "; std::cin >> name;
+    Subject* subject = subjects.FindByName(name);
+    std::cout << "Name: "; std::cin >> name;
+    std::string description;
+    std::cout << "Description: "; std::cin >> description;
+    activities.Add(new DidacticActivity(teacher, room, name, description, subject));
+  }
+
+  void FindPersonByCNP() {
+    long long cnp; std::cin >> cnp;
+    Person* person = people.FindByCnp(cnp);
+    if (!person) {
+      std::cout << "Not found\n";
+      return;
+    }
+    std::cout << *person << '\n';
+  }
+
+  void GradeActivity() {
+    std::cout << "Choose name of activity:\n";
+    std::vector<Activity*> all_activities = activities.FindByType(Activity::DIDACTIC);
+    for (int i = 0; i < (int)all_activities.size(); ++i)
+      std::cout << all_activities[i]->GetName() << ' ';
+    std::cout << '\n';
+    std::string name;
+    std::cout << "Type name: "; std::cin >> name;
+    DidacticActivity* activity = dynamic_cast<DidacticActivity*>(activities.FindByName(name));
+    if (activity == NULL) {
+      std::cout << "ABORT\n";
+      return;
+    }
+    std::cout << "Print grades\n";
+    std::vector<Person*> participants = activity->GetParticipants();
+    std::vector<int> grades;
+    for (int i = 0; i < (int)participants.size(); ++i) {
+      int gr;
+      std::cout << participants[i]->GetLastName() << ": ";
+      std::cin >> gr;
+      grades.push_back(gr);
+    }
+    students.GradeActivity(activity, grades);
+  }
+
+  void PrintGrades() {
+    std::cout << students;
+  }
+
+  void AddStudentToActivity() {
+    std::cout << "Choose name of student:\n";
+    std::vector<Person*> all_students = people.FindByType(Person::STUDENT);
+    for (int i = 0; i < (int)all_students.size(); ++i)
+      std::cout << all_students[i]->GetLastName() << ' ';
+    std::cout << '\n';
+    std::string name;
+    std::cout << "Type name: "; std::cin >> name;
+    Student* student = dynamic_cast<Student*>(people.FindByLastName(name));
+    if (student == NULL) {
+      std::cout << "ABORT\n";
+      return;
+    }
+    std::cout << "Choose name of activity:\n";
+    std::vector<Activity*> all_activities = activities.FindByType(Activity::DIDACTIC);
+    for (int i = 0; i < (int)all_activities.size(); ++i)
+      std::cout << all_activities[i]->GetName() << ' ';
+    std::cout << '\n';
+    std::cout << "Type name: "; std::cin >> name;
+    DidacticActivity* activity = dynamic_cast<DidacticActivity*>(activities.FindByName(name));
+    if (activity == NULL) {
+      std::cout << "ABORT\n";
+      return;
+    }
+
+    activity->AddParticipant(student);
+    students.AddSubjectToStudent(student, activity->GetSubject());
+  }
+
+  StudentRecord students;
+  PersonRepository people;
+  RoomRepository rooms;
+  SubjectRepository subjects;
+  ActivityRepository activities;
+};
+
 int main() {
+  /*
+
+  //TESTING SECTION
+
   Room room("Sala 2");
   std::cout << room.GetName() << std::endl;
   room.SetName("Sala 1");
@@ -277,6 +474,10 @@ int main() {
   record.GradeActivity(&didacticActivity, grds);
 
   std::cout << record;
+  */
+
+  Menu menu;
+  menu.Init();
 
   return 0;
 }

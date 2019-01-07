@@ -9,6 +9,7 @@ class ActivityRepository : public Repository<Activity> {
   std::vector<Activity*> FindByLocation(const std::string& room_name);
   std::vector<Activity*> FindByOwner(const std::string& owner_name);
   std::vector<Activity*> FindByType(Activity::Type type);
+  Activity* FindByName(const std::string& name);
 };
 
 #endif
